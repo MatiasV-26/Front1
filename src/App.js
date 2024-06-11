@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  const [data, setData] = useState("");
+  const [id, setId] = useState(2);
+  const [error, setError] = useState(null); // Default ID value
+
+  useEffect(() => {
+    // Function to make the GET request
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/users/${id}`);
+        if (!response.ok) {
+          setError(1);
+          throw new Error('Network response was not ok');
+        }
+        const jsonData = await response.json();
+        setData(jsonData.user);
+        setError(null);
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Call the function to fetch data when the component mounts
+    fetchData();
+
+    // Cleanup function to avoid memory leaks
+    
+  }, [id]); // Effect runs whenever the 'id' state changes
+
+  const handleIdChange = (e) => {
+    setId(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>GET Request Example</h1>
+      <label htmlFor="idInput">Enter ID: </label>
+      <input
+        id="idInput"
+        type="number"
+        value={id}
+        onChange={handleIdChange}
+      />
+      <br />
+      {!error ? (
+        <div>
+          <h2>Data Received:</h2>
+          <h3>Usuario: {!error? (data.name) :("")}</h3>
+          <h3>Email: {!error? (data.email) :("")}</h3>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
