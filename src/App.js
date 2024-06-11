@@ -36,8 +36,8 @@ function App() {
 
   return (
     <div>
-      <h1>GET Request Example</h1>
-      <label htmlFor="idInput">Enter ID: </label>
+      <h1>ATLESTAT</h1>
+      <label htmlFor="idInput">Ingrese ID: </label>
       <input
         id="idInput"
         type="number"
@@ -47,7 +47,7 @@ function App() {
       <br />
       {!error ? (
         <div>
-          <h2>Data Received:</h2>
+          <h2>Información del usuario:</h2>
           <h3>Usuario: {!error? (data.name) :("")}</h3>
           <h3>Email: {!error? (data.email) :("")}</h3>
         </div>
