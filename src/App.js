@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './App.css';
 function App() {
   const [data, setData] = useState("");
   const [id, setId] = useState(2);
@@ -35,7 +35,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div class ="Padre">
       <h1>ATLESTAT</h1>
       <label htmlFor="idInput">Ingrese ID: </label>
       <input
